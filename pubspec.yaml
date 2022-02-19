@@ -1,0 +1,15 @@
+name: erc20
+description: Interface of the ERC20 standard as defined in the EIP-20 Token Standard.
+version: 1.0.0
+homepage: https://pwa.ir
+repository: https://github.com/xclud/dart_erc20/
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  web3dart: ^2.3.5
+
+dev_dependencies:
+  test: ^1.20.0
+  lints: ^1.0.0
