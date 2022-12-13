@@ -6,6 +6,7 @@ final _contractAbi = web3.ContractAbi.fromJson(
 
 /// Interface of the ERC20 standard as defined in the EIP.
 class ERC20 extends web3.GeneratedContract {
+  /// Constructor.
   ERC20({
     required web3.EthereumAddress address,
     required web3.Web3Client client,
@@ -178,10 +179,13 @@ class Approval {
         spender = (response[1] as web3.EthereumAddress),
         value = (response[2] as BigInt);
 
+  /// The owner address.
   final web3.EthereumAddress owner;
 
+  /// The spender address.
   final web3.EthereumAddress spender;
 
+  /// Value.
   final BigInt value;
 }
 
@@ -192,9 +196,12 @@ class Transfer {
         to = (response[1] as web3.EthereumAddress),
         value = (response[2] as BigInt);
 
+  /// From address.
   final web3.EthereumAddress from;
 
+  /// To address.
   final web3.EthereumAddress to;
 
+  /// Value.
   final BigInt value;
 }

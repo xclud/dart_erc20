@@ -32,7 +32,8 @@ import 'package:erc20/erc20.dart';
 ```
 
 ```dart
-final client = Web3Client('https://mainnet.infura.io/v3/<YOUR_INFURA_PROJECTID>', Client());
+const infuraId = '<YOUR_INFURA_PROJECTID>';
+final client = Web3Client('https://mainnet.infura.io/v3/$infuraId', Client());
 final shibaInu = ERC20(
     address: EthereumAddress.fromHex(
         '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce'),
