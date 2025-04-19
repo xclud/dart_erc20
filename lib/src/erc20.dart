@@ -1,17 +1,18 @@
-import 'package:web3dart/web3dart.dart' as web3;
+part of '../erc20.dart';
 
-final _contractAbi = web3.ContractAbi.fromJson(
-    '[{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]',
-    'Erc20');
+final _contractAbi = ContractAbi.fromJson(
+  '[{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]',
+  'Erc20',
+);
 
 /// Interface of the ERC20 standard as defined in the EIP.
-class ERC20 extends web3.GeneratedContract {
+class ERC20 extends GeneratedContract {
   /// Constructor.
   ERC20({
-    required web3.EthereumAddress address,
-    required web3.Web3Client client,
+    required EthereumAddress address,
+    required Web3Client client,
     int? chainId,
-  }) : super(web3.DeployedContract(_contractAbi, address), client, chainId);
+  }) : super(DeployedContract(_contractAbi, address), client, chainId);
 
   /// Returns the remaining number of tokens that [spender] will be allowed to spend on behalf of [owner] through [transferFrom]. This is zero by default. This value changes when [approve] or [transferFrom] are called.
   ///
@@ -19,9 +20,9 @@ class ERC20 extends web3.GeneratedContract {
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
   Future<BigInt> allowance(
-    web3.EthereumAddress owner,
-    web3.EthereumAddress spender, {
-    web3.BlockNum? atBlock,
+    EthereumAddress owner,
+    EthereumAddress spender, {
+    BlockNum? atBlock,
   }) async {
     final function = self.abi.functions[0];
     assert(checkSignature(function, 'dd62ed3e'));
@@ -36,10 +37,10 @@ class ERC20 extends web3.GeneratedContract {
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
   Future<String> approve(
-    web3.EthereumAddress spender,
+    EthereumAddress spender,
     BigInt amount, {
-    required web3.Credentials credentials,
-    web3.Transaction? transaction,
+    required Credentials credentials,
+    Transaction? transaction,
   }) async {
     final function = self.abi.functions[1];
     assert(checkSignature(function, '095ea7b3'));
@@ -52,10 +53,7 @@ class ERC20 extends web3.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<BigInt> balanceOf(
-    web3.EthereumAddress account, {
-    web3.BlockNum? atBlock,
-  }) async {
+  Future<BigInt> balanceOf(EthereumAddress account, {BlockNum? atBlock}) async {
     final function = self.abi.functions[2];
     assert(checkSignature(function, '70a08231'));
     final params = [account];
@@ -68,7 +66,7 @@ class ERC20 extends web3.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<BigInt> decimals({web3.BlockNum? atBlock}) async {
+  Future<BigInt> decimals({BlockNum? atBlock}) async {
     final function = self.abi.functions[3];
     assert(checkSignature(function, '313ce567'));
     final params = [];
@@ -81,7 +79,7 @@ class ERC20 extends web3.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<String> name({web3.BlockNum? atBlock}) async {
+  Future<String> name({BlockNum? atBlock}) async {
     final function = self.abi.functions[4];
     assert(checkSignature(function, '06fdde03'));
     final params = [];
@@ -94,7 +92,7 @@ class ERC20 extends web3.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<String> symbol({web3.BlockNum? atBlock}) async {
+  Future<String> symbol({BlockNum? atBlock}) async {
     final function = self.abi.functions[5];
     assert(checkSignature(function, '95d89b41'));
     final params = [];
@@ -107,7 +105,7 @@ class ERC20 extends web3.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<BigInt> totalSupply({web3.BlockNum? atBlock}) async {
+  Future<BigInt> totalSupply({BlockNum? atBlock}) async {
     final function = self.abi.functions[6];
     assert(checkSignature(function, '18160ddd'));
     final params = [];
@@ -121,10 +119,10 @@ class ERC20 extends web3.GeneratedContract {
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
   Future<String> transfer(
-    web3.EthereumAddress recipient,
+    EthereumAddress recipient,
     BigInt amount, {
-    required web3.Credentials credentials,
-    web3.Transaction? transaction,
+    required Credentials credentials,
+    Transaction? transaction,
   }) async {
     final function = self.abi.functions[7];
     assert(checkSignature(function, 'a9059cbb'));
@@ -137,10 +135,13 @@ class ERC20 extends web3.GeneratedContract {
   /// The optional [transaction] parameter can be used to override parameters
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
-  Future<String> transferFrom(web3.EthereumAddress sender,
-      web3.EthereumAddress recipient, BigInt amount,
-      {required web3.Credentials credentials,
-      web3.Transaction? transaction}) async {
+  Future<String> transferFrom(
+    EthereumAddress sender,
+    EthereumAddress recipient,
+    BigInt amount, {
+    required Credentials credentials,
+    Transaction? transaction,
+  }) async {
     final function = self.abi.functions[8];
     assert(checkSignature(function, '23b872dd'));
     final params = [sender, recipient, amount];
@@ -148,24 +149,30 @@ class ERC20 extends web3.GeneratedContract {
   }
 
   /// Returns a live stream of all Approval events emitted by this contract.
-  Stream<Approval> approvalEvents(
-      {web3.BlockNum? fromBlock, web3.BlockNum? toBlock}) {
+  Stream<Approval> approvalEvents({BlockNum? fromBlock, BlockNum? toBlock}) {
     final event = self.event('Approval');
-    final filter = web3.FilterOptions.events(
-        contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
-    return client.events(filter).map((web3.FilterEvent result) {
+    final filter = FilterOptions.events(
+      contract: self,
+      event: event,
+      fromBlock: fromBlock,
+      toBlock: toBlock,
+    );
+    return client.events(filter).map((FilterEvent result) {
       final decoded = event.decodeResults(result.topics!, result.data!);
       return Approval._(decoded);
     });
   }
 
   /// Returns a live stream of all Transfer events emitted by this contract.
-  Stream<Transfer> transferEvents(
-      {web3.BlockNum? fromBlock, web3.BlockNum? toBlock}) {
+  Stream<Transfer> transferEvents({BlockNum? fromBlock, BlockNum? toBlock}) {
     final event = self.event('Transfer');
-    final filter = web3.FilterOptions.events(
-        contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
-    return client.events(filter).map((web3.FilterEvent result) {
+    final filter = FilterOptions.events(
+      contract: self,
+      event: event,
+      fromBlock: fromBlock,
+      toBlock: toBlock,
+    );
+    return client.events(filter).map((FilterEvent result) {
       final decoded = event.decodeResults(result.topics!, result.data!);
       return Transfer._(decoded);
     });
@@ -175,15 +182,15 @@ class ERC20 extends web3.GeneratedContract {
 /// Emitted when the allowance of a [spender] for an [owner] is set by a call to [ERC20.approve]. [value] is the new allowance.
 class Approval {
   Approval._(List<dynamic> response)
-      : owner = (response[0] as web3.EthereumAddress),
-        spender = (response[1] as web3.EthereumAddress),
-        value = (response[2] as BigInt);
+    : owner = (response[0] as EthereumAddress),
+      spender = (response[1] as EthereumAddress),
+      value = (response[2] as BigInt);
 
   /// The owner address.
-  final web3.EthereumAddress owner;
+  final EthereumAddress owner;
 
   /// The spender address.
-  final web3.EthereumAddress spender;
+  final EthereumAddress spender;
 
   /// Value.
   final BigInt value;
@@ -192,15 +199,15 @@ class Approval {
 /// Emitted when [value] tokens are moved from one account ([from]) to another ([to]). Note that [value] may be zero.
 class Transfer {
   Transfer._(List<dynamic> response)
-      : from = (response[0] as web3.EthereumAddress),
-        to = (response[1] as web3.EthereumAddress),
-        value = (response[2] as BigInt);
+    : from = (response[0] as EthereumAddress),
+      to = (response[1] as EthereumAddress),
+      value = (response[2] as BigInt);
 
   /// From address.
-  final web3.EthereumAddress from;
+  final EthereumAddress from;
 
   /// To address.
-  final web3.EthereumAddress to;
+  final EthereumAddress to;
 
   /// Value.
   final BigInt value;

@@ -1,3 +1,6 @@
 library erc20;
 
-export 'src/erc20.dart';
+import 'package:web3dart/web3dart.dart';
+import 'package:wallet/wallet.dart';
+
+part 'src/erc20.dart';
